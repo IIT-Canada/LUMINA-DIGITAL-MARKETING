@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINA · Digital Marketing Application</title>
+    <!-- Google Fonts: Inter + Playfair Display for premium touch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 (free) for extra elegance -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b141f;  /* deep navy base for glass contrast */
+            font-family: 'Inter', sans-serif;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.5;
+            color: #e4ecf5;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.04) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 70%, rgba(146, 192, 255, 0.06) 0%, transparent 35%);
+        }
+
+        /* PREMIUM GLASS CARD */
+        .form-card {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(18, 30, 45, 0.5);
+            backdrop-filter: blur(18px) saturate(200%);
+            -webkit-backdrop-filter: blur(18px) saturate(200%);
+            border-radius: 48px;
+            box-shadow: 0 40px 70px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07) inset, 0 0 35px rgba(0, 180, 255, 0.2);
+            padding: 2.8rem 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            background: linear-gradient(130deg, #ffffff, #cfdeff, #aac9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 2px 15px rgba(0,160,255,0.3);
+        }
+
+        h1 i {
+            font-size: 2.6rem;
+            background: rgba(255,255,255,0.08);
+            padding: 0.5rem;
+            border-radius: 60px;
+            -webkit-text-fill-color: #b3d9ff;
+            color: #b3d9ff;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.4);
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #b0c9e7;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1.6rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+        }
+
+        .subhead span:first-child i {
+            margin-right: 8px;
+            color: #85c0ff;
+        }
+
+        .subhead .required-badge {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.8rem;
+            backdrop-filter: blur(4px);
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 500;
+            margin-top: 2.2rem;
+            margin-bottom: 1.6rem;
+            padding-left: 0.8rem;
+            border-left: 6px solid #ffd966;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 1.8rem;
+            color: #ffd966;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem 2.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .field-group.full-width {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: #d1e2ff;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-left: 0.5rem;
+        }
+
+        label i {
+            margin-right: 6px;
+            color: #ffd966;
+            font-size: 0.9rem;
+        }
+
+        /* premium inputs / selects */
+        input, select, textarea {
+            font-family: 'Inter', sans-serif;
+            background: rgba(10, 22, 38, 0.6);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            outline: none;
+            color: #f0f6ff;
+            font-weight: 400;
+            width: 100%;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 20px -10px rgba(0,0,0,0.5);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #ffd966;
+            background: rgba(20, 40, 60, 0.8);
+            box-shadow: 0 0 0 6px rgba(255, 217, 102, 0.15), 0 10px 25px -10px #000;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: #ffd966;
+            margin-right: 0.4rem;
+            box-shadow: none;
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        .radio-option, .check-option {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(255,255,255,0.02);
+            padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #e0ecff;
+            transition: 0.2s;
+        }
+        .radio-option:hover, .check-option:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: #ffd96677;
+        }
+
+        .platform-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 1.3rem 1.8rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        .table-background {
+            background: rgba(0, 15, 30, 0.3);
+            border-radius: 32px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            backdrop-filter: blur(6px);
+        }
+
+        .edu-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(10, 25, 42, 0.5);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -10px black;
+        }
+
+        .edu-table th {
+            background: rgba(255, 217, 102, 0.15);
+            color: #ffeaaf;
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 1rem 0.5rem;
+            text-align: left;
+            padding-left: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .edu-table td {
+            padding: 1rem 0.5rem 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .edu-table input {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            padding: 0.6rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .signature-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50px;
+            padding: 1.8rem 2.5rem;
+            margin: 2.2rem 0 1.2rem;
+            border: 1px solid rgba(255,217,102,0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .signature-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .signature-item input {
+            width: 280px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(125deg, #ffd966, #f2c94c);
+            border: none;
+            color: #0a1622;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 1.3rem 2rem;
+            border-radius: 80px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 245, 200, 0.8);
+            margin-top: 2rem;
+            box-shadow: 0 20px 35px -8px #000000b0, 0 0 0 1px rgba(255,230,140,0.3) inset;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .submit-btn i {
+            font-size: 1.6rem;
+            color: #0a1a2f;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(125deg, #ffe185, #ffd966);
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 35px 45px -10px #000, 0 0 0 2px rgba(255,245,180,0.6) inset;
+        }
+
+        .success-message {
+            background: rgba(0, 40, 30, 0.7);
+            backdrop-filter: blur(8px);
+            color: #d6ffd0;
+            border-radius: 60px;
+            padding: 1.3rem 2rem;
+            text-align: center;
+            font-weight: 500;
+            margin-top: 1.8rem;
+            border: 1px solid rgba(255, 217, 102, 0.6);
+            font-size: 1.1rem;
+            box-shadow: 0 15px 25px -15px black;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #90a9c5;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+
+        /* custom select arrows */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffd966' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            background-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-card" id="applicationForm">
+        <h1><i class="fas fa-gem"></i> LUMINA <span style="font-family: 'Inter', sans-serif; font-weight:300; font-size:2rem; -webkit-text-fill-color:#b4d0ff;">|</span> DIGITAL MARKETING</h1>
+        <div class="subhead">
+            <span><i class="fas fa-university"></i> INSTITUTE OF DIGITAL EXCELLENCE</span>
+            <span class="required-badge"><i class="fas fa-asterisk" style="font-size: 0.6rem; color:#ffaa66;"></i> required fields</span>
+        </div>
+
+        <!-- ========= 1. PERSONAL INFO ========= -->
+        <div class="section-title"><i class="fas fa-user-astronaut"></i> Personal Information</div>
+        <div class="grid-2">
+            <div class="field-group"><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="fullName" placeholder="Your Name"></div>
+            <div class="field-group"><label><i class="fas fa-user-friends"></i> Father's / Guardian's Name *</label><input type="text" id="guardianName" placeholder=""></div>
+            <div class="field-group"><label><i class="fas fa-calendar-alt"></i> Date of Birth *</label><input type="date" id="dob"></div>
+            <div class="field-group">
+                <label><i class="fas fa-venus-mars"></i> Gender *</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="gender" value="Male"> Male</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="Female"> Female</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="Other"> Other</label>
+                </div>
+            </div>
+            <div class="field-group"><label><i class="fas fa-id-card"></i> CNIC / National ID *</label><input type="text" id="cnic" placeholder="12345-6789012-3"></div>
+            
+            <!-- ========= COUNTRY LIST (dynamic) ========= -->
+            <div class="field-group"><label><i class="fas fa-globe-americas"></i> Nationality *</label>
+                <select id="nationality" class="country-select">
+                    <option value="">Select country</option>
+                    <option value="USA">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Germany">Germany</option>
+                    <option value="France">France</option>
+                    <option value="India">India</option>
+                    <option value="Pakistan" selected>Pakistan</option>
+                    <option value="UAE">UAE</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ========= 2. CONTACT ========= -->
+        <div class="section-title"><i class="fas fa-address-card"></i> Contact Information</div>
+        <div class="grid-2">
+            <div class="field-group"><label><i class="fas fa-mobile-alt"></i> Mobile Number *</label><input type="tel" id="mobile" placeholder="+92 300 1234567"></div>
+            <div class="field-group"><label><i class="fas fa-phone-alt"></i> Alternate Phone</label><input type="tel" id="altPhone" placeholder="(optional)"></div>
+            <div class="field-group full-width"><label><i class="fas fa-envelope"></i> Email Address *</label><input type="email" id="email" placeholder="student@example.com"></div>
+            <div class="field-group full-width"><label><i class="fas fa-home"></i> Home Address *</label><input type="text" id="address" placeholder="House, street, area"></div>
+            
+            <!-- CITY dynamically populated based on country -->
+            <div class="field-group"><label><i class="fas fa-city"></i> City *</label>
+                <select id="city" required>
+                    <option value="">Select country first</option>
+                </select>
+            </div>
+            <div class="field-group"><label><i class="fas fa-mail-bulk"></i> Postal Code</label><input type="text" id="postal" placeholder="e.g. 75000"></div>
+        </div>
+
+        <!-- ========= 3. EDUCATION ========= (same but enhanced) -->
+        <div class="section-title"><i class="fas fa-graduation-cap"></i> Educational Background</div>
+        <div class="table-background">
+            <table class="edu-table">
+                <thead><tr><th>Qualification</th><th>Institution</th><th>Year</th><th>Grade/%</th></tr></thead>
+                <tbody>
+                    <tr><td>Matric / High School</td><td><input type="text" id="instMatric" placeholder=""></td><td><input type="text" id="yearMatric" placeholder=""></td><td><input type="text" id="gradeMatric" placeholder=""></td></tr>
+                    <tr><td>Intermediate</td><td><input type="text" id="instInter" placeholder=""></td><td><input type="text" id="yearInter" placeholder=""></td><td><input type="text" id="gradeInter" placeholder=""></td></tr>
+                    <tr><td>Bachelor’s (if any)</td><td><input type="text" id="instBach" placeholder=""></td><td><input type="text" id="yearBach" placeholder=""></td><td><input type="text" id="gradeBach" placeholder=""></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ========= 4. COMPUTER SKILLS ========= -->
+        <div class="section-title"><i class="fas fa-laptop-code"></i> Computer & Internet Skills</div>
+        <div class="grid-2">
+            <div class="field-group"><label>Basic Computer Knowledge *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="basicPC" value="Yes"> Yes</label><label class="radio-option"><input type="radio" name="basicPC" value="No"> No</label></div></div>
+            <div class="field-group"><label>Internet Browsing</label><div class="radio-group"><label class="radio-option"><input type="radio" name="webSkill" value="Beginner"> Beginner</label><label class="radio-option"><input type="radio" name="webSkill" value="Intermediate"> Intermediate</label><label class="radio-option"><input type="radio" name="webSkill" value="Advanced"> Advanced</label></div></div>
+            <div class="field-group"><label>Microsoft Office</label><div class="radio-group"><label class="radio-option"><input type="radio" name="msOffice" value="Yes"> Yes</label><label class="radio-option"><input type="radio" name="msOffice" value="No"> No</label></div></div>
+            <div class="field-group"><label>Social Media Usage</label><div class="radio-group"><label class="radio-option"><input type="radio" name="socialMedia" value="Yes"> Yes</label><label class="radio-option"><input type="radio" name="socialMedia" value="No"> No</label></div></div>
+        </div>
+        <div class="field-group" style="margin-top:1rem;">
+            <label>Platforms used:</label>
+            <div class="platform-grid">
+                <label class="check-option"><input type="checkbox" class="platform" value="Facebook"> <i class="fab fa-facebook"></i> Facebook</label>
+                <label class="check-option"><input type="checkbox" class="platform" value="Instagram"> <i class="fab fa-instagram"></i> Instagram</label>
+                <label class="check-option"><input type="checkbox" class="platform" value="YouTube"> <i class="fab fa-youtube"></i> YouTube</label>
+                <label class="check-option"><input type="checkbox" class="platform" value="TikTok"> <i class="fab fa-tiktok"></i> TikTok</label>
+                <label class="check-option"><input type="checkbox" class="platform" value="Other"> Other: <input type="text" style="width:120px; margin-left:6px; background:rgba(0,0,0,0.3);" placeholder="name"></label>
+            </div>
+        </div>
+
+        <!-- ========= 5. COURSE DETAILS ========= -->
+        <div class="section-title"><i class="fas fa-clock"></i> Course Details</div>
+        <div class="grid-2">
+            <div class="field-group"><label>Course Name</label><input type="text" id="courseName" value="Digital Marketing" readonly style="background:rgba(255,255,255,0.05); font-weight:300;"></div>
+            <div class="field-group"><label>Preferred Class Timing *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="timing" value="Morning"> Morning</label><label class="radio-option"><input type="radio" name="timing" value="Afternoon"> Afternoon</label><label class="radio-option"><input type="radio" name="timing" value="Evening"> Evening</label></div></div>
+            <div class="field-group"><label>Learning Mode *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="mode" value="Online"> Online</label><label class="radio-option"><input type="radio" name="mode" value="Physical Classes"> Physical Classes</label></div></div>
+        </div>
+
+        <!-- ========= 6. AREAS OF INTEREST ========= -->
+        <div class="section-title"><i class="fas fa-chart-line"></i> Areas of Interest</div>
+        <div class="grid-3">
+            <div><label class="check-option"><input type="checkbox" id="interestSEO"> SEO</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestSMM"> Social Media Marketing</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestContent"> Content Marketing</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestEmail"> Email Marketing</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestAffiliate"> Affiliate Marketing</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestEcom"> E-commerce</label></div>
+            <div><label class="check-option"><input type="checkbox" id="interestPaid"> Paid Advertising</label></div>
+        </div>
+        <div style="margin: 1.5rem 0 0.5rem;"><label>Tools you want to learn:</label></div>
+        <div class="platform-grid">
+            <label class="check-option"><input type="checkbox" id="toolGA"> Google Analytics</label>
+            <label class="check-option"><input type="checkbox" id="toolGAds"> Google Ads</label>
+            <label class="check-option"><input type="checkbox" id="toolCanva"> Canva</label>
+        </div>
+
+        <!-- ========= 7. EXPERIENCE ========= -->
+        <div class="section-title"><i class="fas fa-briefcase"></i> Experience (Optional)</div>
+        <div class="field-group"><label>Previous marketing experience?</label><div class="radio-group"><label class="radio-option"><input type="radio" name="exp" value="Yes" id="expYes"> Yes</label><label class="radio-option"><input type="radio" name="exp" value="No" id="expNo"> No</label></div></div>
+        <div class="field-group"><label>If yes, please describe:</label><textarea rows="2" id="expDesc" placeholder="Brief description..."></textarea></div>
+
+        <!-- ========= 8. PURPOSE ========= -->
+        <div class="section-title"><i class="fas fa-bullseye"></i> Purpose of Joining</div>
+        <div class="grid-2">
+            <label class="check-option"><input type="checkbox" id="purposeBusiness"> Start an online business</label>
+            <label class="check-option"><input type="checkbox" id="purposeFreelance"> Freelancing</label>
+            <label class="check-option"><input type="checkbox" id="purposeJob"> Job opportunities</label>
+            <label class="check-option"><input type="checkbox" id="purposeBusinessExist"> Improve existing business</label>
+            <label class="check-option" style="grid-column:span 2;"><input type="checkbox" id="purposeOther"> Other: <input type="text" id="purposeOtherText" placeholder="specify" style="width:70%; display:inline;"></label>
+        </div>
+
+        <!-- ========= 9. DECLARATION ========= -->
+        <div class="section-title"><i class="fas fa-pen-fancy"></i> Declaration</div>
+        <div class="signature-area">
+            <div class="signature-item"><label><i class="fas fa-signature"></i> Applicant Signature *</label><input type="text" id="signature" placeholder="Full name or e-sign"></div>
+            <div class="signature-item"><label><i class="fas fa-calendar-check"></i> Date *</label><input type="date" id="declDate"></div>
+        </div>
+
+        <!-- submission -->
+        <button class="submit-btn" id="submitApplication"><i class="fas fa-paper-plane"></i> Submit Application <i class="fas fa-gem" style="font-size:1.3rem;"></i></button>
+        <div id="successMsg" class="success-message" style="display: none;"></div>
+        <footer><i class="far fa-clock"></i> Please verify all entries — institute use only</footer>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- CITY DATABASE (luxury) ----------
+            const cityMap = {
+                'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'San Francisco', 'Miami', 'Seattle'],
+                'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton', 'Quebec City'],
+                'UK': ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow', 'Liverpool', 'Bristol'],
+                'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra', 'Gold Coast'],
+                'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne', 'Stuttgart', 'Dusseldorf'],
+                'France': ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Bordeaux'],
+                'India': ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune'],
+                'Pakistan': ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Peshawar', 'Quetta'],
+                'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],
+                'Saudi Arabia': ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam'],
+                'Other': ['Other (please specify)']
+            };
+
+            const countrySelect = document.getElementById('nationality');
+            const citySelect = document.getElementById('city');
+
+            function populateCities(selectedCountry) {
+                citySelect.innerHTML = ''; // reset
+                const cities = cityMap[selectedCountry] || ['Select a city'];
+                if (selectedCountry === 'Other') {
+                    let option = document.createElement('option');
+                    option.value = 'Other';
+                    option.text = 'Other (enter manually)';
+                    citySelect.appendChild(option);
+                } else {
+                    cities.forEach(city => {
+                        let option = document.createElement('option');
+                        option.value = city;
+                        option.text = city;
+                        citySelect.appendChild(option);
+                    });
+                }
+                // if user can type manually, but we keep as select; add free text option? We can also add an input field later if needed. For simplicity, we also add an "other" in each? but we stick to provided cities.
+            }
+
+            // initial load (Pakistan is default)
+            populateCities('Pakistan');
+
+            countrySelect.addEventListener('change', function(e) {
+                populateCities(e.target.value);
+            });
+
+            // ---------- FORM SUBMIT (premium check + success) ----------
+            document.getElementById('submitApplication').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const guardian = document.getElementById('guardianName').value.trim();
+                const dob = document.getElementById('dob').value;
+                const gender = document.querySelector('input[name="gender"]:checked');
+                const cnic = document.getElementById('cnic').value.trim();
+                const nationality = document.getElementById('nationality').value;
+                const mobile = document.getElementById('mobile').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const city = document.getElementById('city').value;
+                const timing = document.querySelector('input[name="timing"]:checked');
+                const mode = document.querySelector('input[name="mode"]:checked');
+                const signature = document.getElementById('signature').value.trim();
+                const declDate = document.getElementById('declDate').value;
+
+                if (!fullName || !guardian || !dob || !gender || !cnic || !nationality || !mobile || !email || !address || !city || !timing || !mode || !signature || !declDate) {
+                    alert('Please complete all required fields (marked with *). Also ensure gender, timing, mode are selected.');
+                    return;
+                }
+
+                // selected platforms
+                let platforms = [];
+                document.querySelectorAll('.platform:checked').forEach(cb => platforms.push(cb.value));
+
+                // success message
+                const successDiv = document.getElementById('successMsg');
+                successDiv.style.display = 'block';
+                successDiv.innerHTML = `✨ Thank you, ${fullName}! Your premium application has been received. Our admissions team will reach out within 24h.`;
+
+                console.log('LUMINA application', { fullName, nationality, city, platforms });
+            });
+        })();
+    </script>
+</body>
+</html>

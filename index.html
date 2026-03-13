@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>LUMINA · Digital Marketing Application</title>
-    <!-- Google Fonts: Inter + Playfair Display for premium touch -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free) for extra elegance -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -23,7 +23,7 @@
         body {
             background: #0b141f;
             font-family: 'Inter', sans-serif;
-            padding: 2.5rem 1.5rem;
+            padding: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,22 +34,34 @@
                               radial-gradient(circle at 90% 70%, rgba(146, 192, 255, 0.06) 0%, transparent 35%);
         }
 
+        /* Mobile-First Styles */
         .form-card {
             max-width: 1200px;
             width: 100%;
             background: rgba(18, 30, 45, 0.5);
             backdrop-filter: blur(18px) saturate(200%);
             -webkit-backdrop-filter: blur(18px) saturate(200%);
-            border-radius: 48px;
-            box-shadow: 0 40px 70px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07) inset, 0 0 35px rgba(0, 180, 255, 0.2);
-            padding: 2.8rem 3rem;
+            border-radius: 32px;
+            box-shadow: 0 40px 70px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.07) inset;
+            padding: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.3s ease;
         }
 
+        /* Tablet and Desktop */
+        @media (min-width: 768px) {
+            body {
+                padding: 2.5rem 1.5rem;
+            }
+            .form-card {
+                padding: 2.8rem 3rem;
+                border-radius: 48px;
+            }
+        }
+
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-size: 1.8rem;
             font-weight: 600;
             letter-spacing: -0.01em;
             background: linear-gradient(130deg, #ffffff, #cfdeff, #aac9ff);
@@ -59,12 +71,20 @@
             margin-bottom: 0.2rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
             text-shadow: 0 2px 15px rgba(0,160,255,0.3);
         }
 
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+                gap: 1rem;
+            }
+        }
+
         h1 i {
-            font-size: 2.6rem;
+            font-size: 1.8rem;
             background: rgba(255,255,255,0.08);
             padding: 0.5rem;
             border-radius: 60px;
@@ -73,19 +93,35 @@
             box-shadow: 0 10px 20px -5px rgba(0,0,0,0.4);
         }
 
+        @media (min-width: 768px) {
+            h1 i {
+                font-size: 2.6rem;
+            }
+        }
+
         .subhead {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #b0c9e7;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 1.6rem;
-            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             font-weight: 300;
+        }
+
+        @media (min-width: 768px) {
+            .subhead {
+                font-size: 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 1.6rem;
+                margin-bottom: 2rem;
+            }
         }
 
         .subhead span:first-child i {
@@ -93,30 +129,34 @@
             color: #85c0ff;
         }
 
-        .subhead .required-badge {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0.3rem 1.5rem;
-            border-radius: 60px;
-            border: 1px solid rgba(255,255,255,0.15);
-            font-size: 0.8rem;
-            backdrop-filter: blur(4px);
-            font-weight: 400;
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-right {
+                flex-direction: row;
+                align-items: center;
+            }
         }
 
         .connection-status {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 0.3rem 1.2rem;
+            padding: 0.3rem 1rem;
             border-radius: 60px;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            width: fit-content;
         }
 
         .status-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background-color: #ffaa00;
             transition: all 0.3s ease;
@@ -132,61 +172,117 @@
             box-shadow: 0 0 10px #f44336;
         }
 
+        .required-badge {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.15);
+            font-size: 0.7rem;
+            backdrop-filter: blur(4px);
+            font-weight: 400;
+            width: fit-content;
+        }
+
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.7rem;
+            font-size: 1.4rem;
             font-weight: 500;
-            margin-top: 2.2rem;
-            margin-bottom: 1.6rem;
-            padding-left: 0.8rem;
-            border-left: 6px solid #ffd966;
+            margin-top: 1.5rem;
+            margin-bottom: 1.2rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid #ffd966;
             color: #ffffff;
             letter-spacing: -0.3px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 1.7rem;
+                margin-top: 2.2rem;
+                margin-bottom: 1.6rem;
+                padding-left: 0.8rem;
+                border-left: 6px solid #ffd966;
+                gap: 10px;
+            }
+        }
+
         .section-title i {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #ffd966;
         }
 
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.8rem 2.5rem;
+        @media (min-width: 768px) {
+            .section-title i {
+                font-size: 1.8rem;
+            }
         }
 
-        .grid-3 {
+        /* Grid layouts - mobile first */
+        .grid-2, .grid-3 {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-2 {
+                gap: 1.8rem 2.5rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
         }
 
         .field-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .field-group.full-width {
-            grid-column: span 2;
+            grid-column: span 1;
+        }
+
+        @media (min-width: 640px) {
+            .field-group.full-width {
+                grid-column: span 2;
+            }
         }
 
         label {
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #d1e2ff;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             margin-left: 0.5rem;
         }
 
+        @media (min-width: 768px) {
+            label {
+                font-size: 0.85rem;
+            }
+        }
+
         label i {
-            margin-right: 6px;
+            margin-right: 4px;
             color: #ffd966;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .required-field::after {
@@ -199,9 +295,9 @@
             font-family: 'Inter', sans-serif;
             background: rgba(10, 22, 38, 0.6);
             border: 1.5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 22px;
-            padding: 0.9rem 1.5rem;
-            font-size: 1rem;
+            border-radius: 16px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
             transition: all 0.25s ease;
             outline: none;
             color: #f0f6ff;
@@ -209,12 +305,22 @@
             width: 100%;
             backdrop-filter: blur(6px);
             box-shadow: 0 8px 20px -10px rgba(0,0,0,0.5);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        @media (min-width: 768px) {
+            input, select, textarea {
+                border-radius: 22px;
+                padding: 0.9rem 1.5rem;
+                font-size: 1rem;
+            }
         }
 
         input:focus, select:focus, textarea:focus {
             border-color: #ffd966;
             background: rgba(20, 40, 60, 0.8);
-            box-shadow: 0 0 0 6px rgba(255, 217, 102, 0.15), 0 10px 25px -10px #000;
+            box-shadow: 0 0 0 4px rgba(255, 217, 102, 0.15);
         }
 
         input.error, select.error, textarea.error {
@@ -229,38 +335,64 @@
         }
 
         input[type="radio"], input[type="checkbox"] {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1rem;
+            height: 1rem;
             accent-color: #ffd966;
-            margin-right: 0.4rem;
+            margin-right: 0.3rem;
             box-shadow: none;
+        }
+
+        @media (min-width: 768px) {
+            input[type="radio"], input[type="checkbox"] {
+                width: 1.2rem;
+                height: 1.2rem;
+                margin-right: 0.4rem;
+            }
         }
 
         .radio-group, .checkbox-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
+            gap: 0.75rem;
             align-items: center;
             background: rgba(0, 0, 0, 0.2);
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(4px);
+        }
+
+        @media (min-width: 768px) {
+            .radio-group, .checkbox-group {
+                gap: 1.2rem;
+                padding: 0.7rem 1.5rem;
+                border-radius: 50px;
+            }
         }
 
         .radio-option, .check-option {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
             background: rgba(255,255,255,0.02);
-            padding: 0.4rem 1.2rem 0.4rem 0.8rem;
-            border-radius: 40px;
+            padding: 0.3rem 0.8rem 0.3rem 0.5rem;
+            border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #e0ecff;
             transition: 0.2s;
             cursor: pointer;
         }
+
+        @media (min-width: 768px) {
+            .radio-option, .check-option {
+                gap: 0.3rem;
+                padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+                border-radius: 40px;
+                font-size: 0.9rem;
+            }
+        }
+
         .radio-option:hover, .check-option:hover {
             background: rgba(255,255,255,0.08);
             border-color: #ffd96677;
@@ -269,76 +401,142 @@
         .platform-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.75rem;
             background: rgba(0, 0, 0, 0.15);
-            padding: 1.3rem 1.8rem;
-            border-radius: 40px;
+            padding: 1rem;
+            border-radius: 24px;
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(4px);
         }
 
+        @media (min-width: 768px) {
+            .platform-grid {
+                gap: 1rem;
+                padding: 1.3rem 1.8rem;
+                border-radius: 40px;
+            }
+        }
+
         .table-background {
             background: rgba(0, 15, 30, 0.3);
-            border-radius: 32px;
-            padding: 1.5rem;
+            border-radius: 20px;
+            padding: 1rem;
             border: 1px solid rgba(255,255,255,0.07);
             backdrop-filter: blur(6px);
             overflow-x: auto;
+        }
+
+        @media (min-width: 768px) {
+            .table-background {
+                border-radius: 32px;
+                padding: 1.5rem;
+            }
         }
 
         .edu-table {
             width: 100%;
             border-collapse: collapse;
             background: rgba(10, 25, 42, 0.5);
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 25px -10px black;
-            min-width: 600px;
+            min-width: 500px;
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 768px) {
+            .edu-table {
+                border-radius: 24px;
+                min-width: 600px;
+                font-size: 0.95rem;
+            }
         }
 
         .edu-table th {
             background: rgba(255, 217, 102, 0.15);
             color: #ffeaaf;
             font-weight: 500;
-            font-size: 0.85rem;
-            padding: 1rem 0.5rem;
+            font-size: 0.75rem;
+            padding: 0.75rem 0.25rem;
             text-align: left;
-            padding-left: 1.5rem;
+            padding-left: 0.75rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+        }
+
+        @media (min-width: 768px) {
+            .edu-table th {
+                font-size: 0.85rem;
+                padding: 1rem 0.5rem;
+                padding-left: 1.5rem;
+                letter-spacing: 1px;
+            }
         }
 
         .edu-table td {
-            padding: 1rem 0.5rem 1rem 1.5rem;
+            padding: 0.75rem 0.25rem 0.75rem 0.75rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+
+        @media (min-width: 768px) {
+            .edu-table td {
+                padding: 1rem 0.5rem 1rem 1.5rem;
+            }
+        }
+
         .edu-table input {
             background: rgba(0, 0, 0, 0.25);
-            border-radius: 16px;
-            padding: 0.6rem 1rem;
+            border-radius: 12px;
+            padding: 0.4rem 0.5rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .edu-table input {
+                border-radius: 16px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
         }
 
         .signature-area {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
             background: rgba(0, 0, 0, 0.2);
-            border-radius: 50px;
-            padding: 1.8rem 2.5rem;
-            margin: 2.2rem 0 1.2rem;
+            border-radius: 24px;
+            padding: 1.2rem;
+            margin: 1.5rem 0 1rem;
             border: 1px solid rgba(255,217,102,0.2);
             backdrop-filter: blur(8px);
+        }
+
+        @media (min-width: 768px) {
+            .signature-area {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 50px;
+                padding: 1.8rem 2.5rem;
+                margin: 2.2rem 0 1.2rem;
+            }
         }
 
         .signature-item {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
-            flex: 1;
-            min-width: 250px;
+            gap: 0.4rem;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .signature-item {
+                gap: 0.5rem;
+                width: auto;
+                flex: 1;
+            }
         }
 
         .signature-item input {
@@ -350,32 +548,48 @@
             border: none;
             color: #0a1622;
             font-weight: 700;
-            font-size: 1.3rem;
-            padding: 1.3rem 2rem;
-            border-radius: 80px;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 40px;
             width: 100%;
             cursor: pointer;
             transition: all 0.3s;
             letter-spacing: 1px;
             border: 1px solid rgba(255, 245, 200, 0.8);
-            margin-top: 2rem;
-            box-shadow: 0 20px 35px -8px #000000b0, 0 0 0 1px rgba(255,230,140,0.3) inset;
+            margin-top: 1.5rem;
+            box-shadow: 0 20px 35px -8px #000000b0;
             text-transform: uppercase;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .submit-btn {
+                font-size: 1.3rem;
+                padding: 1.3rem 2rem;
+                border-radius: 80px;
+                margin-top: 2rem;
+                gap: 15px;
+            }
         }
 
         .submit-btn i {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             color: #0a1a2f;
+        }
+
+        @media (min-width: 768px) {
+            .submit-btn i {
+                font-size: 1.6rem;
+            }
         }
 
         .submit-btn:hover:not(:disabled) {
             background: linear-gradient(125deg, #ffe185, #ffd966);
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 35px 45px -10px #000, 0 0 0 2px rgba(255,245,180,0.6) inset;
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 35px 45px -10px #000;
         }
 
         .submit-btn:disabled {
@@ -384,15 +598,24 @@
         }
 
         .message {
-            border-radius: 60px;
-            padding: 1.3rem 2rem;
+            border-radius: 24px;
+            padding: 1rem 1.2rem;
             text-align: center;
             font-weight: 500;
-            margin-top: 1.8rem;
-            font-size: 1.1rem;
+            margin-top: 1.2rem;
+            font-size: 0.95rem;
             box-shadow: 0 15px 25px -15px black;
             backdrop-filter: blur(8px);
             display: none;
+        }
+
+        @media (min-width: 768px) {
+            .message {
+                border-radius: 60px;
+                padding: 1.3rem 2rem;
+                margin-top: 1.8rem;
+                font-size: 1.1rem;
+            }
         }
 
         .success-message {
@@ -409,13 +632,21 @@
 
         .loading-spinner {
             display: inline-block;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.2rem;
+            height: 1.2rem;
             border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
+            margin-right: 8px;
+        }
+
+        @media (min-width: 768px) {
+            .loading-spinner {
+                width: 1.5rem;
+                height: 1.5rem;
+                margin-right: 10px;
+            }
         }
 
         @keyframes spin {
@@ -424,12 +655,19 @@
 
         .progress-bar {
             width: 100%;
-            height: 4px;
+            height: 3px;
             background: rgba(255,255,255,0.1);
             border-radius: 2px;
-            margin-top: 1rem;
+            margin: 1rem 0;
             overflow: hidden;
             display: none;
+        }
+
+        @media (min-width: 768px) {
+            .progress-bar {
+                height: 4px;
+                margin: 1.5rem 0;
+            }
         }
 
         .progress-fill {
@@ -439,22 +677,53 @@
             transition: width 0.3s ease;
         }
 
+        /* Mobile Navigation */
         .form-navigation {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .form-navigation::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .form-navigation {
+                gap: 1rem;
+                margin-bottom: 2rem;
+                overflow-x: visible;
+                flex-wrap: wrap;
+                padding-bottom: 0;
+            }
         }
 
         .nav-btn {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
             color: #e4ecf5;
-            padding: 0.8rem 1.5rem;
-            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            .nav-btn {
+                padding: 0.8rem 1.5rem;
+                border-radius: 40px;
+                font-size: 0.9rem;
+                white-space: normal;
+                flex-shrink: 1;
+            }
         }
 
         .nav-btn:hover {
@@ -468,43 +737,69 @@
             border-color: #ffd966;
         }
 
+        .nav-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .nav-controls {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+        }
+
+        .nav-controls button {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #e4ecf5;
+            padding: 0.75rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .nav-controls button {
+                width: auto;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+
         footer {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: #90a9c5;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             opacity: 0.7;
         }
 
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffd966' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: right 1.5rem center;
-            background-size: 1.2rem;
+        @media (min-width: 768px) {
+            footer {
+                font-size: 0.8rem;
+                margin-top: 2rem;
+            }
         }
 
-        @media (max-width: 768px) {
-            .form-card {
-                padding: 1.5rem;
-            }
-            
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-            }
-            
-            .field-group.full-width {
-                grid-column: span 1;
-            }
-            
-            .signature-area {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-                flex-wrap: wrap;
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23ffd966' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            select {
+                background-position: right 1.5rem center;
+                background-size: 1.2rem;
             }
         }
 
@@ -518,9 +813,6 @@
         .form-section.active {
             display: block;
             opacity: 1;
-        }
-
-        .form-section {
             animation: fadeIn 0.5s ease;
         }
 
@@ -528,14 +820,51 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Touch-friendly adjustments */
+        button, .radio-option, .check-option {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        input, select, textarea {
+            font-size: 16px; /* Prevents zoom on mobile */
+        }
+
+        /* Better spacing for mobile */
+        @media (max-width: 480px) {
+            .platform-grid {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .platform-grid .check-option {
+                width: 100%;
+            }
+            
+            .platform-grid .check-option input[type="text"] {
+                width: calc(100% - 60px) !important;
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="form-card" id="applicationForm">
-        <h1><i class="fas fa-gem"></i> LUMINA <span style="font-family: 'Inter', sans-serif; font-weight:300; font-size:2rem; -webkit-text-fill-color:#b4d0ff;">|</span> DIGITAL MARKETING</h1>
+        <h1>
+            <i class="fas fa-gem"></i> 
+            LUMINA 
+            <span style="font-family: 'Inter', sans-serif; font-weight:300; font-size:1.2rem; -webkit-text-fill-color:#b4d0ff;">|</span> 
+            DIGITAL MARKETING
+        </h1>
+        
         <div class="subhead">
             <span><i class="fas fa-university"></i> INSTITUTE OF DIGITAL EXCELLENCE</span>
-            <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+            <div class="header-right">
                 <div class="connection-status" id="connectionStatus">
                     <span class="status-dot" id="statusDot"></span>
                     <span id="statusText">Connecting...</span>
@@ -566,8 +895,8 @@
         <div class="form-section active" id="section-personal">
             <div class="section-title"><i class="fas fa-user-astronaut"></i> Personal Information</div>
             <div class="grid-2">
-                <div class="field-group"><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="fullName" placeholder="Your Name" class="required"></div>
-                <div class="field-group"><label><i class="fas fa-user-friends"></i> Father's / Guardian's Name *</label><input type="text" id="guardianName" placeholder="" class="required"></div>
+                <div class="field-group"><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="fullName" placeholder="Your Full Name" class="required"></div>
+                <div class="field-group"><label><i class="fas fa-user-friends"></i> Father's Name *</label><input type="text" id="guardianName" placeholder="Father/Guardian Name" class="required"></div>
                 <div class="field-group"><label><i class="fas fa-calendar-alt"></i> Date of Birth *</label><input type="date" id="dob" class="required"></div>
                 <div class="field-group">
                     <label><i class="fas fa-venus-mars"></i> Gender *</label>
@@ -577,7 +906,7 @@
                         <label class="radio-option"><input type="radio" name="gender" value="Other"> Other</label>
                     </div>
                 </div>
-                <div class="field-group"><label><i class="fas fa-id-card"></i> CNIC / National ID *</label><input type="text" id="cnic" placeholder="12345-6789012-3" class="required"></div>
+                <div class="field-group"><label><i class="fas fa-id-card"></i> CNIC / ID *</label><input type="text" id="cnic" placeholder="12345-6789012-3" class="required"></div>
                 <div class="field-group"><label><i class="fas fa-globe-americas"></i> Nationality *</label>
                     <select id="nationality" class="country-select required">
                         <option value="">Select country</option>
@@ -595,8 +924,8 @@
                     </select>
                 </div>
             </div>
-            <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
-                <button class="nav-btn next-section" data-next="contact">Next Section <i class="fas fa-arrow-right"></i></button>
+            <div class="nav-controls">
+                <button class="next-section" data-next="contact">Next Section <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -604,10 +933,10 @@
         <div class="form-section" id="section-contact">
             <div class="section-title"><i class="fas fa-address-card"></i> Contact Information</div>
             <div class="grid-2">
-                <div class="field-group"><label><i class="fas fa-mobile-alt"></i> Mobile Number *</label><input type="tel" id="mobile" placeholder="Your Phone Number" class="required"></div>
-                <div class="field-group"><label><i class="fas fa-phone-alt"></i> Alternate Phone</label><input type="tel" id="altPhone" placeholder="(optional)"></div>
-                <div class="field-group full-width"><label><i class="fas fa-envelope"></i> Email Address *</label><input type="email" id="email" placeholder="Your Gmail" class="required"></div>
-                <div class="field-group full-width"><label><i class="fas fa-home"></i> Home Address *</label><input type="text" id="address" placeholder="House, street, area" class="required"></div>
+                <div class="field-group"><label><i class="fas fa-mobile-alt"></i> Mobile Number *</label><input type="tel" id="mobile" placeholder="03XX-XXXXXXX" class="required"></div>
+                <div class="field-group"><label><i class="fas fa-phone-alt"></i> Alternate Phone</label><input type="tel" id="altPhone" placeholder="Optional"></div>
+                <div class="field-group full-width"><label><i class="fas fa-envelope"></i> Email Address *</label><input type="email" id="email" placeholder="your.email@example.com" class="required"></div>
+                <div class="field-group full-width"><label><i class="fas fa-home"></i> Home Address *</label><input type="text" id="address" placeholder="Street, House No., Area" class="required"></div>
                 <div class="field-group"><label><i class="fas fa-city"></i> City *</label>
                     <select id="city" class="required">
                         <option value="">Select country first</option>
@@ -615,9 +944,9 @@
                 </div>
                 <div class="field-group"><label><i class="fas fa-mail-bulk"></i> Postal Code</label><input type="text" id="postal" placeholder="e.g. 75000"></div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="personal"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="education">Next Section <i class="fas fa-arrow-right"></i></button>
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="personal"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="education">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -626,42 +955,91 @@
             <div class="section-title"><i class="fas fa-graduation-cap"></i> Educational Background</div>
             <div class="table-background">
                 <table class="edu-table">
-                    <thead><tr><th>Qualification</th><th>Institution</th><th>Year</th><th>Grade/%</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th>Qualification</th>
+                            <th>Institution</th>
+                            <th>Year</th>
+                            <th>Grade/%</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr><td>Matric / High School</td><td><input type="text" id="instMatric" placeholder=""></td><td><input type="text" id="yearMatric" placeholder=""></td><td><input type="text" id="gradeMatric" placeholder=""></td></tr>
-                        <tr><td>Intermediate</td><td><input type="text" id="instInter" placeholder=""></td><td><input type="text" id="yearInter" placeholder=""></td><td><input type="text" id="gradeInter" placeholder=""></td></tr>
-                        <tr><td>Bachelor’s (if any)</td><td><input type="text" id="instBach" placeholder=""></td><td><input type="text" id="yearBach" placeholder=""></td><td><input type="text" id="gradeBach" placeholder=""></td></tr>
+                        <tr>
+                            <td>Matric</td>
+                            <td><input type="text" id="instMatric" placeholder="School name"></td>
+                            <td><input type="text" id="yearMatric" placeholder="2020"></td>
+                            <td><input type="text" id="gradeMatric" placeholder="A+"></td>
+                        </tr>
+                        <tr>
+                            <td>Intermediate</td>
+                            <td><input type="text" id="instInter" placeholder="College name"></td>
+                            <td><input type="text" id="yearInter" placeholder="2022"></td>
+                            <td><input type="text" id="gradeInter" placeholder="B+"></td>
+                        </tr>
+                        <tr>
+                            <td>Bachelor's</td>
+                            <td><input type="text" id="instBach" placeholder="University (if any)"></td>
+                            <td><input type="text" id="yearBach" placeholder="2025"></td>
+                            <td><input type="text" id="gradeBach" placeholder="3.5 GPA"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="contact"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="skills">Next Section <i class="fas fa-arrow-right"></i></button>
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="contact"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="skills">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
         <!-- ========= 4. COMPUTER SKILLS ========= -->
         <div class="form-section" id="section-skills">
-            <div class="section-title"><i class="fas fa-laptop-code"></i> Computer & Internet Skills</div>
+            <div class="section-title"><i class="fas fa-laptop-code"></i> Computer Skills</div>
             <div class="grid-2">
-                <div class="field-group"><label>Basic Computer Knowledge *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="basicPC" value="Yes" class="required"> Yes</label><label class="radio-option"><input type="radio" name="basicPC" value="No"> No</label></div></div>
-                <div class="field-group"><label>Internet Browsing</label><div class="radio-group"><label class="radio-option"><input type="radio" name="webSkill" value="Beginner"> Beginner</label><label class="radio-option"><input type="radio" name="webSkill" value="Intermediate"> Intermediate</label><label class="radio-option"><input type="radio" name="webSkill" value="Advanced"> Advanced</label></div></div>
-                <div class="field-group"><label>Microsoft Office</label><div class="radio-group"><label class="radio-option"><input type="radio" name="msOffice" value="Yes"> Yes</label><label class="radio-option"><input type="radio" name="msOffice" value="No"> No</label></div></div>
-                <div class="field-group"><label>Social Media Usage</label><div class="radio-group"><label class="radio-option"><input type="radio" name="socialMedia" value="Yes"> Yes</label><label class="radio-option"><input type="radio" name="socialMedia" value="No"> No</label></div></div>
+                <div class="field-group">
+                    <label>Basic Computer *</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="basicPC" value="Yes" class="required"> Yes</label>
+                        <label class="radio-option"><input type="radio" name="basicPC" value="No"> No</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>Internet Browsing</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="webSkill" value="Beginner"> Beginner</label>
+                        <label class="radio-option"><input type="radio" name="webSkill" value="Intermediate"> Intermediate</label>
+                        <label class="radio-option"><input type="radio" name="webSkill" value="Advanced"> Advanced</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>MS Office</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="msOffice" value="Yes"> Yes</label>
+                        <label class="radio-option"><input type="radio" name="msOffice" value="No"> No</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>Social Media</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="socialMedia" value="Yes"> Yes</label>
+                        <label class="radio-option"><input type="radio" name="socialMedia" value="No"> No</label>
+                    </div>
+                </div>
             </div>
+            
             <div class="field-group" style="margin-top:1rem;">
-                <label>Platforms used:</label>
+                <label>Platforms you use:</label>
                 <div class="platform-grid">
                     <label class="check-option"><input type="checkbox" class="platform" value="Facebook"> <i class="fab fa-facebook"></i> Facebook</label>
                     <label class="check-option"><input type="checkbox" class="platform" value="Instagram"> <i class="fab fa-instagram"></i> Instagram</label>
                     <label class="check-option"><input type="checkbox" class="platform" value="YouTube"> <i class="fab fa-youtube"></i> YouTube</label>
                     <label class="check-option"><input type="checkbox" class="platform" value="TikTok"> <i class="fab fa-tiktok"></i> TikTok</label>
-                    <label class="check-option"><input type="checkbox" class="platform" value="Other"> Other: <input type="text" style="width:120px; margin-left:6px; background:rgba(0,0,0,0.3);" placeholder="name"></label>
+                    <label class="check-option"><input type="checkbox" class="platform" value="Other"> Other: <input type="text" style="width:100px; margin-left:6px; background:rgba(0,0,0,0.3);" placeholder="name"></label>
                 </div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="education"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="course">Next Section <i class="fas fa-arrow-right"></i></button>
+            
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="education"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="course">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -669,13 +1047,29 @@
         <div class="form-section" id="section-course">
             <div class="section-title"><i class="fas fa-clock"></i> Course Details</div>
             <div class="grid-2">
-                <div class="field-group"><label>Course Name</label><input type="text" id="courseName" value="Digital Marketing" readonly style="background:rgba(255,255,255,0.05); font-weight:300;"></div>
-                <div class="field-group"><label>Preferred Class Timing *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="timing" value="Morning" class="required"> Morning</label><label class="radio-option"><input type="radio" name="timing" value="Afternoon"> Afternoon</label><label class="radio-option"><input type="radio" name="timing" value="Evening"> Evening</label></div></div>
-                <div class="field-group"><label>Learning Mode *</label><div class="radio-group"><label class="radio-option"><input type="radio" name="mode" value="Online" class="required"> Online</label><label class="radio-option"><input type="radio" name="mode" value="Physical Classes"> Physical Classes</label></div></div>
+                <div class="field-group">
+                    <label>Course Name</label>
+                    <input type="text" id="courseName" value="Digital Marketing" readonly style="background:rgba(255,255,255,0.05);">
+                </div>
+                <div class="field-group">
+                    <label>Class Timing *</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="timing" value="Morning" class="required"> Morning</label>
+                        <label class="radio-option"><input type="radio" name="timing" value="Afternoon"> Afternoon</label>
+                        <label class="radio-option"><input type="radio" name="timing" value="Evening"> Evening</label>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label>Learning Mode *</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="mode" value="Online" class="required"> Online</label>
+                        <label class="radio-option"><input type="radio" name="mode" value="Physical Classes"> Physical</label>
+                    </div>
+                </div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="skills"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="interests">Next Section <i class="fas fa-arrow-right"></i></button>
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="skills"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="interests">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -683,50 +1077,66 @@
         <div class="form-section" id="section-interests">
             <div class="section-title"><i class="fas fa-chart-line"></i> Areas of Interest</div>
             <div class="grid-3">
-                <div><label class="check-option"><input type="checkbox" id="interestSEO"> SEO</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestSMM"> Social Media Marketing</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestContent"> Content Marketing</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestEmail"> Email Marketing</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestAffiliate"> Affiliate Marketing</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestEcom"> E-commerce</label></div>
-                <div><label class="check-option"><input type="checkbox" id="interestPaid"> Paid Advertising</label></div>
+                <label class="check-option"><input type="checkbox" id="interestSEO"> SEO</label>
+                <label class="check-option"><input type="checkbox" id="interestSMM"> Social Media</label>
+                <label class="check-option"><input type="checkbox" id="interestContent"> Content</label>
+                <label class="check-option"><input type="checkbox" id="interestEmail"> Email</label>
+                <label class="check-option"><input type="checkbox" id="interestAffiliate"> Affiliate</label>
+                <label class="check-option"><input type="checkbox" id="interestEcom"> E-commerce</label>
+                <label class="check-option"><input type="checkbox" id="interestPaid"> Paid Ads</label>
             </div>
-            <div style="margin: 1.5rem 0 0.5rem;"><label>Tools you want to learn:</label></div>
+            
+            <div style="margin: 1.2rem 0 0.5rem;"><label>Tools to learn:</label></div>
             <div class="platform-grid">
                 <label class="check-option"><input type="checkbox" id="toolGA"> Google Analytics</label>
                 <label class="check-option"><input type="checkbox" id="toolGAds"> Google Ads</label>
                 <label class="check-option"><input type="checkbox" id="toolCanva"> Canva</label>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="course"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="experience">Next Section <i class="fas fa-arrow-right"></i></button>
+            
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="course"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="experience">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
         <!-- ========= 7. EXPERIENCE ========= -->
         <div class="form-section" id="section-experience">
-            <div class="section-title"><i class="fas fa-briefcase"></i> Experience (Optional)</div>
-            <div class="field-group"><label>Previous marketing experience?</label><div class="radio-group"><label class="radio-option"><input type="radio" name="exp" value="Yes" id="expYes"> Yes</label><label class="radio-option"><input type="radio" name="exp" value="No" id="expNo" checked> No</label></div></div>
-            <div class="field-group"><label>If yes, please describe:</label><textarea rows="2" id="expDesc" placeholder="Brief description..."></textarea></div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="interests"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="purpose">Next Section <i class="fas fa-arrow-right"></i></button>
+            <div class="section-title"><i class="fas fa-briefcase"></i> Experience</div>
+            <div class="field-group">
+                <label>Previous marketing experience?</label>
+                <div class="radio-group">
+                    <label class="radio-option"><input type="radio" name="exp" value="Yes" id="expYes"> Yes</label>
+                    <label class="radio-option"><input type="radio" name="exp" value="No" id="expNo" checked> No</label>
+                </div>
+            </div>
+            <div class="field-group">
+                <label>If yes, describe:</label>
+                <textarea rows="3" id="expDesc" placeholder="Brief description..."></textarea>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="interests"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="purpose">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
         <!-- ========= 8. PURPOSE ========= -->
         <div class="form-section" id="section-purpose">
-            <div class="section-title"><i class="fas fa-bullseye"></i> Purpose of Joining</div>
+            <div class="section-title"><i class="fas fa-bullseye"></i> Purpose</div>
             <div class="grid-2">
-                <label class="check-option"><input type="checkbox" id="purposeBusiness"> Start an online business</label>
+                <label class="check-option"><input type="checkbox" id="purposeBusiness"> Start business</label>
                 <label class="check-option"><input type="checkbox" id="purposeFreelance"> Freelancing</label>
-                <label class="check-option"><input type="checkbox" id="purposeJob"> Job opportunities</label>
-                <label class="check-option"><input type="checkbox" id="purposeBusinessExist"> Improve existing business</label>
-                <label class="check-option" style="grid-column:span 2;"><input type="checkbox" id="purposeOther"> Other: <input type="text" id="purposeOtherText" placeholder="specify" style="width:70%; display:inline;"></label>
+                <label class="check-option"><input type="checkbox" id="purposeJob"> Job</label>
+                <label class="check-option"><input type="checkbox" id="purposeBusinessExist"> Improve business</label>
+                <label class="check-option" style="grid-column:span 2;">
+                    <input type="checkbox" id="purposeOther"> Other: 
+                    <input type="text" id="purposeOtherText" placeholder="specify" style="width:60%; display:inline-block;">
+                </label>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="experience"><i class="fas fa-arrow-left"></i> Previous</button>
-                <button class="nav-btn next-section" data-next="declaration">Next Section <i class="fas fa-arrow-right"></i></button>
+            
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="experience"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="next-section" data-next="declaration">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
 
@@ -734,23 +1144,35 @@
         <div class="form-section" id="section-declaration">
             <div class="section-title"><i class="fas fa-pen-fancy"></i> Declaration</div>
             <div class="signature-area">
-                <div class="signature-item"><label><i class="fas fa-signature"></i> Applicant Signature *</label><input type="text" id="signature" placeholder="Full name or e-sign" class="required"></div>
-                <div class="signature-item"><label><i class="fas fa-calendar-check"></i> Date *</label><input type="date" id="declDate" class="required"></div>
+                <div class="signature-item">
+                    <label><i class="fas fa-signature"></i> Signature *</label>
+                    <input type="text" id="signature" placeholder="Your full name" class="required">
+                </div>
+                <div class="signature-item">
+                    <label><i class="fas fa-calendar-check"></i> Date *</label>
+                    <input type="date" id="declDate" class="required">
+                </div>
             </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
-                <button class="nav-btn prev-section" data-prev="purpose"><i class="fas fa-arrow-left"></i> Previous</button>
+            
+            <div class="nav-controls">
+                <button class="prev-section" data-prev="purpose"><i class="fas fa-arrow-left"></i> Previous</button>
             </div>
         </div>
 
-        <!-- submission -->
+        <!-- Submit Button -->
         <button class="submit-btn" id="submitApplication">
             <i class="fas fa-paper-plane"></i> 
             <span id="submitText">Submit Application</span>
-            <i class="fas fa-gem" style="font-size:1.3rem;"></i>
+            <i class="fas fa-gem"></i>
         </button>
+        
+        <!-- Messages -->
         <div id="successMsg" class="message success-message"></div>
         <div id="errorMsg" class="message error-message"></div>
-        <footer><i class="far fa-clock"></i> Please verify all entries — securely stored in cloud</footer>
+        
+        <footer>
+            <i class="far fa-clock"></i> All data securely stored in cloud
+        </footer>
     </div>
 
     <script>
@@ -762,8 +1184,7 @@
                 projectId: "lumina-iit",
                 storageBucket: "lumina-iit.firebasestorage.app",
                 messagingSenderId: "737923752480",
-                appId: "1:737923752480:web:b408fae0cbc09c8b981245",
-                measurementId: "G-46Y47LGMDX"
+                appId: "1:737923752480:web:b408fae0cbc09c8b981245"
             };
 
             // Initialize Firebase
@@ -774,408 +1195,265 @@
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.firestore();
                 isFirebaseInitialized = true;
-                console.log('🔥 Firebase initialized successfully');
+                console.log('🔥 Firebase initialized');
                 updateConnectionStatus(true);
             } catch (error) {
-                console.error('Firebase initialization error:', error);
+                console.error('Firebase error:', error);
                 updateConnectionStatus(false);
             }
 
-            // Update connection status UI
             function updateConnectionStatus(connected) {
                 const statusDot = document.getElementById('statusDot');
                 const statusText = document.getElementById('statusText');
-                
-                if (connected) {
-                    statusDot.className = 'status-dot connected';
-                    statusText.textContent = 'Connected';
-                } else {
-                    statusDot.className = 'status-dot disconnected';
-                    statusText.textContent = 'Disconnected';
-                }
+                statusDot.className = connected ? 'status-dot connected' : 'status-dot disconnected';
+                statusText.textContent = connected ? 'Connected' : 'Disconnected';
             }
 
-            // Show/hide messages
             function showMessage(type, text) {
                 const successMsg = document.getElementById('successMsg');
                 const errorMsg = document.getElementById('errorMsg');
-                
                 successMsg.style.display = 'none';
                 errorMsg.style.display = 'none';
                 
                 if (type === 'success') {
                     successMsg.innerHTML = text;
                     successMsg.style.display = 'block';
-                    setTimeout(() => {
-                        successMsg.style.display = 'none';
-                    }, 10000);
-                } else if (type === 'error') {
+                    setTimeout(() => successMsg.style.display = 'none', 8000);
+                } else {
                     errorMsg.innerHTML = text;
                     errorMsg.style.display = 'block';
-                    setTimeout(() => {
-                        errorMsg.style.display = 'none';
-                    }, 5000);
+                    setTimeout(() => errorMsg.style.display = 'none', 5000);
                 }
             }
 
-            // Set loading state
             function setLoading(isLoading) {
-                const submitBtn = document.getElementById('submitApplication');
-                const submitText = document.getElementById('submitText');
-                
-                if (isLoading) {
-                    submitBtn.disabled = true;
-                    submitText.innerHTML = '<span class="loading-spinner"></span> Submitting...';
-                } else {
-                    submitBtn.disabled = false;
-                    submitText.innerHTML = 'Submit Application';
-                }
+                const btn = document.getElementById('submitApplication');
+                const text = document.getElementById('submitText');
+                btn.disabled = isLoading;
+                text.innerHTML = isLoading ? '<span class="loading-spinner"></span> Submitting...' : 'Submit Application';
             }
 
-            // Update progress bar
+            // Update progress
             function updateProgress() {
-                const sections = document.querySelectorAll('.form-section');
-                const progressFill = document.getElementById('progressFill');
-                const progressBar = document.getElementById('progressBar');
+                let completed = 0;
+                let total = 0;
                 
-                let completedFields = 0;
-                let totalRequired = 0;
-                
-                // Count required fields
                 document.querySelectorAll('.required, input[type="radio"].required, select.required').forEach(field => {
-                    totalRequired++;
+                    total++;
                     if (field.type === 'radio') {
-                        const name = field.name;
-                        if (document.querySelector(`input[name="${name}"]:checked`)) {
-                            completedFields++;
-                        }
+                        if (document.querySelector(`input[name="${field.name}"]:checked`)) completed++;
                     } else if (field.tagName === 'SELECT') {
-                        if (field.value) {
-                            completedFields++;
-                        }
-                    } else if (field.value && field.value.trim() !== '') {
-                        completedFields++;
+                        if (field.value) completed++;
+                    } else if (field.value?.trim()) {
+                        completed++;
                     }
                 });
                 
-                const percentage = (completedFields / totalRequired) * 100;
-                progressFill.style.width = percentage + '%';
-                
-                if (percentage > 0) {
-                    progressBar.style.display = 'block';
-                }
+                const percent = (completed / total) * 100;
+                document.getElementById('progressFill').style.width = percent + '%';
+                document.getElementById('progressBar').style.display = percent > 0 ? 'block' : 'none';
             }
 
-            // Form section navigation
-            const navBtns = document.querySelectorAll('.nav-btn[data-section]');
+            // Section navigation
             const sections = document.querySelectorAll('.form-section');
-            const nextBtns = document.querySelectorAll('.next-section');
-            const prevBtns = document.querySelectorAll('.prev-section');
+            const navBtns = document.querySelectorAll('.nav-btn[data-section]');
 
             function showSection(sectionId) {
-                sections.forEach(section => {
-                    section.classList.remove('active');
-                });
+                sections.forEach(s => s.classList.remove('active'));
                 document.getElementById(`section-${sectionId}`).classList.add('active');
                 
                 navBtns.forEach(btn => {
                     btn.classList.remove('active');
-                    if (btn.dataset.section === sectionId) {
-                        btn.classList.add('active');
-                    }
+                    if (btn.dataset.section === sectionId) btn.classList.add('active');
                 });
                 
-                // Scroll to top of form
                 document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
-            navBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    showSection(btn.dataset.section);
-                });
-            });
+            navBtns.forEach(btn => btn.addEventListener('click', () => showSection(btn.dataset.section)));
+            document.querySelectorAll('.next-section').forEach(btn => btn.addEventListener('click', () => showSection(btn.dataset.next)));
+            document.querySelectorAll('.prev-section').forEach(btn => btn.addEventListener('click', () => showSection(btn.dataset.prev)));
 
-            nextBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const nextSection = btn.dataset.next;
-                    if (nextSection) {
-                        showSection(nextSection);
-                    }
-                });
-            });
-
-            prevBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const prevSection = btn.dataset.prev;
-                    if (prevSection) {
-                        showSection(prevSection);
-                    }
-                });
-            });
-
-            // ---------- CITY DATABASE ----------
+            // City database
             const cityMap = {
-                'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'San Francisco', 'Miami', 'Seattle'],
-                'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Edmonton', 'Quebec City'],
-                'UK': ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow', 'Liverpool', 'Bristol'],
-                'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra', 'Gold Coast'],
-                'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne', 'Stuttgart', 'Dusseldorf'],
-                'France': ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Nantes', 'Bordeaux'],
+                'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'San Francisco', 'Miami', 'Seattle'],
+                'Canada': ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa', 'Quebec City'],
+                'UK': ['London', 'Manchester', 'Birmingham', 'Edinburgh', 'Glasgow', 'Liverpool'],
+                'Australia': ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide', 'Canberra'],
+                'Germany': ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne', 'Stuttgart'],
+                'France': ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice', 'Bordeaux'],
                 'India': ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune'],
                 'Pakistan': ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Peshawar', 'Quetta'],
-                'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah'],
+                'UAE': ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman'],
                 'Saudi Arabia': ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam'],
-                'Other': ['Other (please specify)']
+                'Other': ['Other']
             };
 
             const countrySelect = document.getElementById('nationality');
             const citySelect = document.getElementById('city');
 
-            function populateCities(selectedCountry) {
+            function populateCities(country) {
                 citySelect.innerHTML = '';
-                const cities = cityMap[selectedCountry] || ['Select a city'];
+                const cities = cityMap[country] || ['Select a city'];
                 
-                if (selectedCountry === 'Other') {
+                let defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.text = 'Select a city';
+                citySelect.appendChild(defaultOption);
+                
+                cities.forEach(city => {
                     let option = document.createElement('option');
-                    option.value = 'Other';
-                    option.text = 'Other (enter manually)';
+                    option.value = city;
+                    option.text = city;
                     citySelect.appendChild(option);
-                } else {
-                    let defaultOption = document.createElement('option');
-                    defaultOption.value = '';
-                    defaultOption.text = 'Select a city';
-                    citySelect.appendChild(defaultOption);
-                    
-                    cities.forEach(city => {
-                        let option = document.createElement('option');
-                        option.value = city;
-                        option.text = city;
-                        citySelect.appendChild(option);
-                    });
-                }
+                });
                 updateProgress();
             }
 
             populateCities('Pakistan');
+            countrySelect.addEventListener('change', (e) => populateCities(e.target.value));
 
-            countrySelect.addEventListener('change', function(e) {
-                populateCities(e.target.value);
-                updateProgress();
-            });
-
-            // Add input event listeners for progress tracking
+            // Track progress
             document.querySelectorAll('input, select, textarea').forEach(field => {
                 field.addEventListener('input', updateProgress);
                 field.addEventListener('change', updateProgress);
             });
 
-            // ---------- FORM SUBMIT WITH FIREBASE ----------
+            // Form submission
             document.getElementById('submitApplication').addEventListener('click', async function(e) {
                 e.preventDefault();
 
-                // Check Firebase connection
                 if (!isFirebaseInitialized) {
-                    showMessage('error', '❌ Firebase not connected. Please check your configuration.');
+                    showMessage('error', '❌ Firebase not connected');
                     return;
                 }
 
-                // Validate all required fields
-                const requiredFields = document.querySelectorAll('.required, input[type="radio"].required, select.required');
+                // Validate required fields
                 let hasError = false;
-
-                requiredFields.forEach(field => {
+                document.querySelectorAll('.required, input[type="radio"].required, select.required').forEach(field => {
                     field.classList.remove('error');
                     
                     if (field.type === 'radio') {
-                        const name = field.name;
-                        if (!document.querySelector(`input[name="${name}"]:checked`)) {
-                            field.closest('.radio-group').querySelectorAll('.radio-option').forEach(opt => {
-                                opt.style.borderColor = '#ff6b6b';
-                            });
+                        if (!document.querySelector(`input[name="${field.name}"]:checked`)) {
+                            field.closest('.radio-group').style.borderColor = '#ff6b6b';
                             hasError = true;
                         }
-                    } else if (field.tagName === 'SELECT') {
-                        if (!field.value) {
-                            field.classList.add('error');
-                            hasError = true;
-                        }
-                    } else if (!field.value || field.value.trim() === '') {
+                    } else if (!field.value) {
                         field.classList.add('error');
                         hasError = true;
                     }
                 });
 
                 if (hasError) {
-                    showMessage('error', 'Please complete all required fields (marked with *).');
-                    // Show the first section with errors
-                    const firstError = document.querySelector('.error');
-                    if (firstError) {
-                        const section = firstError.closest('.form-section');
-                        if (section) {
-                            const sectionId = section.id.replace('section-', '');
-                            showSection(sectionId);
-                        }
-                    }
+                    showMessage('error', 'Please complete all required fields');
                     return;
                 }
 
-                // Get all form values
-                const fullName = document.getElementById('fullName').value.trim();
-                const guardian = document.getElementById('guardianName').value.trim();
-                const dob = document.getElementById('dob').value;
-                const genderElement = document.querySelector('input[name="gender"]:checked');
-                const cnic = document.getElementById('cnic').value.trim();
-                const nationality = document.getElementById('nationality').value;
-                const mobile = document.getElementById('mobile').value.trim();
-                const altPhone = document.getElementById('altPhone').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const address = document.getElementById('address').value.trim();
-                const city = document.getElementById('city').value;
-                const postal = document.getElementById('postal').value.trim();
-                const timingElement = document.querySelector('input[name="timing"]:checked');
-                const modeElement = document.querySelector('input[name="mode"]:checked');
-                const signature = document.getElementById('signature').value.trim();
-                const declDate = document.getElementById('declDate').value;
-
-                // Get education values
-                const instMatric = document.getElementById('instMatric').value.trim();
-                const yearMatric = document.getElementById('yearMatric').value.trim();
-                const gradeMatric = document.getElementById('gradeMatric').value.trim();
-                const instInter = document.getElementById('instInter').value.trim();
-                const yearInter = document.getElementById('yearInter').value.trim();
-                const gradeInter = document.getElementById('gradeInter').value.trim();
-                const instBach = document.getElementById('instBach').value.trim();
-                const yearBach = document.getElementById('yearBach').value.trim();
-                const gradeBach = document.getElementById('gradeBach').value.trim();
-
-                // Get radio values
-                const basicPC = document.querySelector('input[name="basicPC"]:checked')?.value;
-                const webSkill = document.querySelector('input[name="webSkill"]:checked')?.value;
-                const msOffice = document.querySelector('input[name="msOffice"]:checked')?.value;
-                const socialMedia = document.querySelector('input[name="socialMedia"]:checked')?.value;
-                const expElement = document.querySelector('input[name="exp"]:checked');
-                const expDesc = document.getElementById('expDesc').value.trim();
-
-                // Get checkbox groups
-                const platforms = [];
-                document.querySelectorAll('.platform:checked').forEach(cb => platforms.push(cb.value));
-                
-                const interests = [];
-                if (document.getElementById('interestSEO').checked) interests.push('SEO');
-                if (document.getElementById('interestSMM').checked) interests.push('Social Media Marketing');
-                if (document.getElementById('interestContent').checked) interests.push('Content Marketing');
-                if (document.getElementById('interestEmail').checked) interests.push('Email Marketing');
-                if (document.getElementById('interestAffiliate').checked) interests.push('Affiliate Marketing');
-                if (document.getElementById('interestEcom').checked) interests.push('E-commerce');
-                if (document.getElementById('interestPaid').checked) interests.push('Paid Advertising');
-
-                const tools = [];
-                if (document.getElementById('toolGA').checked) tools.push('Google Analytics');
-                if (document.getElementById('toolGAds').checked) tools.push('Google Ads');
-                if (document.getElementById('toolCanva').checked) tools.push('Canva');
-
-                const purposes = [];
-                if (document.getElementById('purposeBusiness').checked) purposes.push('Start online business');
-                if (document.getElementById('purposeFreelance').checked) purposes.push('Freelancing');
-                if (document.getElementById('purposeJob').checked) purposes.push('Job opportunities');
-                if (document.getElementById('purposeBusinessExist').checked) purposes.push('Improve existing business');
-                if (document.getElementById('purposeOther').checked) {
-                    const otherText = document.getElementById('purposeOtherText').value.trim();
-                    purposes.push(otherText || 'Other');
-                }
-
-                // Prepare data for Firebase
+                // Collect form data
                 const formData = {
                     personalInfo: {
-                        fullName,
-                        guardian,
-                        dateOfBirth: dob,
-                        gender: genderElement.value,
-                        cnic,
-                        nationality
+                        fullName: document.getElementById('fullName').value,
+                        guardian: document.getElementById('guardianName').value,
+                        dateOfBirth: document.getElementById('dob').value,
+                        gender: document.querySelector('input[name="gender"]:checked')?.value,
+                        cnic: document.getElementById('cnic').value,
+                        nationality: document.getElementById('nationality').value
                     },
                     contactInfo: {
-                        mobile,
-                        alternatePhone: altPhone || null,
-                        email,
-                        address,
-                        city,
-                        postalCode: postal || null
+                        mobile: document.getElementById('mobile').value,
+                        altPhone: document.getElementById('altPhone').value || null,
+                        email: document.getElementById('email').value,
+                        address: document.getElementById('address').value,
+                        city: document.getElementById('city').value,
+                        postal: document.getElementById('postal').value || null
                     },
                     education: {
-                        matric: { institution: instMatric, year: yearMatric, grade: gradeMatric },
-                        intermediate: { institution: instInter, year: yearInter, grade: gradeInter },
-                        bachelors: { institution: instBach, year: yearBach, grade: gradeBach }
+                        matric: {
+                            inst: document.getElementById('instMatric').value,
+                            year: document.getElementById('yearMatric').value,
+                            grade: document.getElementById('gradeMatric').value
+                        },
+                        inter: {
+                            inst: document.getElementById('instInter').value,
+                            year: document.getElementById('yearInter').value,
+                            grade: document.getElementById('gradeInter').value
+                        },
+                        bachelors: {
+                            inst: document.getElementById('instBach').value,
+                            year: document.getElementById('yearBach').value,
+                            grade: document.getElementById('gradeBach').value
+                        }
                     },
                     skills: {
-                        basicComputer: basicPC,
-                        internetBrowsing: webSkill || null,
-                        microsoftOffice: msOffice || null,
-                        socialMediaUsage: socialMedia || null,
-                        platformsUsed: platforms
+                        basicPC: document.querySelector('input[name="basicPC"]:checked')?.value,
+                        webSkill: document.querySelector('input[name="webSkill"]:checked')?.value,
+                        msOffice: document.querySelector('input[name="msOffice"]:checked')?.value,
+                        socialMedia: document.querySelector('input[name="socialMedia"]:checked')?.value,
+                        platforms: Array.from(document.querySelectorAll('.platform:checked')).map(cb => cb.value)
                     },
-                    courseDetails: {
-                        courseName: 'Digital Marketing',
-                        preferredTiming: timingElement.value,
-                        learningMode: modeElement.value
+                    course: {
+                        timing: document.querySelector('input[name="timing"]:checked')?.value,
+                        mode: document.querySelector('input[name="mode"]:checked')?.value
                     },
                     interests: {
-                        areas: interests,
-                        tools: tools
+                        areas: [
+                            ...(document.getElementById('interestSEO').checked ? ['SEO'] : []),
+                            ...(document.getElementById('interestSMM').checked ? ['Social Media'] : []),
+                            ...(document.getElementById('interestContent').checked ? ['Content'] : []),
+                            ...(document.getElementById('interestEmail').checked ? ['Email'] : []),
+                            ...(document.getElementById('interestAffiliate').checked ? ['Affiliate'] : []),
+                            ...(document.getElementById('interestEcom').checked ? ['E-commerce'] : []),
+                            ...(document.getElementById('interestPaid').checked ? ['Paid Ads'] : [])
+                        ],
+                        tools: [
+                            ...(document.getElementById('toolGA').checked ? ['Google Analytics'] : []),
+                            ...(document.getElementById('toolGAds').checked ? ['Google Ads'] : []),
+                            ...(document.getElementById('toolCanva').checked ? ['Canva'] : [])
+                        ]
                     },
                     experience: {
-                        hasExperience: expElement?.value || 'No',
-                        description: expDesc || null
+                        hasExperience: document.querySelector('input[name="exp"]:checked')?.value,
+                        description: document.getElementById('expDesc').value || null
                     },
-                    purpose: purposes,
+                    purpose: [
+                        ...(document.getElementById('purposeBusiness').checked ? ['Start business'] : []),
+                        ...(document.getElementById('purposeFreelance').checked ? ['Freelancing'] : []),
+                        ...(document.getElementById('purposeJob').checked ? ['Job'] : []),
+                        ...(document.getElementById('purposeBusinessExist').checked ? ['Improve business'] : []),
+                        ...(document.getElementById('purposeOther').checked ? [document.getElementById('purposeOtherText').value || 'Other'] : [])
+                    ],
                     declaration: {
-                        signature,
-                        date: declDate
+                        signature: document.getElementById('signature').value,
+                        date: document.getElementById('declDate').value
                     },
                     metadata: {
                         submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        applicationId: 'APP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-                        userAgent: navigator.userAgent,
-                        timestamp: new Date().toISOString()
+                        applicationId: 'APP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6)
                     }
                 };
 
-                // Submit to Firebase
                 setLoading(true);
                 
                 try {
-                    // Add to Firestore
                     const docRef = await db.collection('applications').add(formData);
-                    
-                    console.log('✅ Application saved with ID:', docRef.id);
-                    
-                    // Show success message
-                    showMessage('success', `✨ Thank you, ${fullName}! Your application (ID: ${docRef.id.slice(0,8)}...) has been securely saved. Our admissions team will reach out within 24h.`);
+                    showMessage('success', `✨ Thank you! Application ID: ${docRef.id.slice(0,8)}...`);
                     
                     // Reset form
-                    document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select, textarea').forEach(field => {
-                        if (field.id !== 'nationality' && field.id !== 'courseName') {
-                            field.value = '';
-                        }
+                    document.querySelectorAll('input:not([type="radio"]):not([type="checkbox"]), select, textarea').forEach(f => {
+                        if (f.id !== 'nationality' && f.id !== 'courseName') f.value = '';
                     });
-                    
-                    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(field => {
-                        field.checked = false;
-                    });
-                    
-                    // Reset to first section
+                    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(f => f.checked = false);
                     showSection('personal');
                     updateProgress();
                     
                 } catch (error) {
-                    console.error('❌ Error saving to Firebase:', error);
-                    showMessage('error', '❌ Failed to save application. Please try again or contact support.');
+                    console.error('Error:', error);
+                    showMessage('error', '❌ Submission failed. Please try again.');
                 } finally {
                     setLoading(false);
                 }
             });
 
-            // Initial progress update
             updateProgress();
         })();
     </script>

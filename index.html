@@ -10,6 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 (free) for extra elegance -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -99,6 +102,35 @@
             font-size: 0.8rem;
             backdrop-filter: blur(4px);
             font-weight: 400;
+        }
+
+        .connection-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.3rem 1.2rem;
+            border-radius: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ffaa00;
+            transition: all 0.3s ease;
+        }
+
+        .status-dot.connected {
+            background-color: #4CAF50;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+
+        .status-dot.disconnected {
+            background-color: #f44336;
+            box-shadow: 0 0 10px #f44336;
         }
 
         .section-title {
@@ -320,24 +352,54 @@
             color: #0a1a2f;
         }
 
-        .submit-btn:hover {
+        .submit-btn:hover:not(:disabled) {
             background: linear-gradient(125deg, #ffe185, #ffd966);
             transform: translateY(-5px) scale(1.01);
             box-shadow: 0 35px 45px -10px #000, 0 0 0 2px rgba(255,245,180,0.6) inset;
         }
 
-        .success-message {
-            background: rgba(0, 40, 30, 0.7);
-            backdrop-filter: blur(8px);
-            color: #d6ffd0;
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .message {
             border-radius: 60px;
             padding: 1.3rem 2rem;
             text-align: center;
             font-weight: 500;
             margin-top: 1.8rem;
-            border: 1px solid rgba(255, 217, 102, 0.6);
             font-size: 1.1rem;
             box-shadow: 0 15px 25px -15px black;
+            backdrop-filter: blur(8px);
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 40, 30, 0.7);
+            color: #d6ffd0;
+            border: 1px solid rgba(255, 217, 102, 0.6);
+        }
+
+        .error-message {
+            background: rgba(80, 20, 20, 0.7);
+            color: #ffd0d0;
+            border: 1px solid rgba(255, 100, 100, 0.6);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         footer {
@@ -363,13 +425,19 @@
         <h1><i class="fas fa-gem"></i> LUMINA <span style="font-family: 'Inter', sans-serif; font-weight:300; font-size:2rem; -webkit-text-fill-color:#b4d0ff;">|</span> DIGITAL MARKETING</h1>
         <div class="subhead">
             <span><i class="fas fa-university"></i> INSTITUTE OF DIGITAL EXCELLENCE</span>
-            <span class="required-badge"><i class="fas fa-asterisk" style="font-size: 0.6rem; color:#ffaa66;"></i> required fields</span>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
+                <span class="required-badge"><i class="fas fa-asterisk" style="font-size: 0.6rem; color:#ffaa66;"></i> required fields</span>
+            </div>
         </div>
 
         <!-- ========= 1. PERSONAL INFO ========= -->
         <div class="section-title"><i class="fas fa-user-astronaut"></i> Personal Information</div>
         <div class="grid-2">
-            <div class="field-group"><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="fullName" placeholder="Your Name"></div>
+            <div class="field-group"><label><i class="fas fa-user"></i> Full Name *</label><input type="text" id="fullName" placeholder="e.g. Ayesha Khan"></div>
             <div class="field-group"><label><i class="fas fa-user-friends"></i> Father's / Guardian's Name *</label><input type="text" id="guardianName" placeholder=""></div>
             <div class="field-group"><label><i class="fas fa-calendar-alt"></i> Date of Birth *</label><input type="date" id="dob"></div>
             <div class="field-group">
@@ -499,13 +567,89 @@
         </div>
 
         <!-- submission -->
-        <button class="submit-btn" id="submitApplication"><i class="fas fa-paper-plane"></i> Submit Application <i class="fas fa-gem" style="font-size:1.3rem;"></i></button>
-        <div id="successMsg" class="success-message" style="display: none;"></div>
-        <footer><i class="far fa-clock"></i> Please verify all entries — institute use only</footer>
+        <button class="submit-btn" id="submitApplication">
+            <i class="fas fa-paper-plane"></i> 
+            <span id="submitText">Submit Application</span>
+            <i class="fas fa-gem" style="font-size:1.3rem;"></i>
+        </button>
+        <div id="successMsg" class="message success-message"></div>
+        <div id="errorMsg" class="message error-message"></div>
+        <footer><i class="far fa-clock"></i> Please verify all entries — securely stored in cloud</footer>
     </div>
 
     <script>
         (function() {
+            // TODO: Replace with your Firebase configuration
+            // Get these values from your Firebase Console (Project Settings)
+            const firebaseConfig = {
+                apiKey: "YOUR_API_KEY",
+                authDomain: "YOUR_AUTH_DOMAIN",
+                projectId: "YOUR_PROJECT_ID",
+                storageBucket: "YOUR_STORAGE_BUCKET",
+                messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+                appId: "YOUR_APP_ID"
+            };
+
+            // Initialize Firebase
+            let db;
+            let isFirebaseInitialized = false;
+
+            try {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                isFirebaseInitialized = true;
+                console.log('🔥 Firebase initialized successfully');
+                updateConnectionStatus(true);
+            } catch (error) {
+                console.error('Firebase initialization error:', error);
+                updateConnectionStatus(false);
+            }
+
+            // Update connection status UI
+            function updateConnectionStatus(connected) {
+                const statusDot = document.getElementById('statusDot');
+                const statusText = document.getElementById('statusText');
+                
+                if (connected) {
+                    statusDot.className = 'status-dot connected';
+                    statusText.textContent = 'Connected';
+                } else {
+                    statusDot.className = 'status-dot disconnected';
+                    statusText.textContent = 'Disconnected';
+                }
+            }
+
+            // Show/hide messages
+            function showMessage(type, text) {
+                const successMsg = document.getElementById('successMsg');
+                const errorMsg = document.getElementById('errorMsg');
+                
+                successMsg.style.display = 'none';
+                errorMsg.style.display = 'none';
+                
+                if (type === 'success') {
+                    successMsg.innerHTML = text;
+                    successMsg.style.display = 'block';
+                } else if (type === 'error') {
+                    errorMsg.innerHTML = text;
+                    errorMsg.style.display = 'block';
+                }
+            }
+
+            // Set loading state
+            function setLoading(isLoading) {
+                const submitBtn = document.getElementById('submitApplication');
+                const submitText = document.getElementById('submitText');
+                
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    submitText.innerHTML = '<span class="loading-spinner"></span> Submitting...';
+                } else {
+                    submitBtn.disabled = false;
+                    submitText.innerHTML = 'Submit Application';
+                }
+            }
+
             // ---------- CITY DATABASE (luxury) ----------
             const cityMap = {
                 'USA': ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'San Francisco', 'Miami', 'Seattle'],
@@ -527,12 +671,19 @@
             function populateCities(selectedCountry) {
                 citySelect.innerHTML = ''; // reset
                 const cities = cityMap[selectedCountry] || ['Select a city'];
+                
                 if (selectedCountry === 'Other') {
                     let option = document.createElement('option');
                     option.value = 'Other';
                     option.text = 'Other (enter manually)';
                     citySelect.appendChild(option);
                 } else {
+                    // Add a default "Select a city" option
+                    let defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.text = 'Select a city';
+            citySelect.appendChild(defaultOption);
+                    
                     cities.forEach(city => {
                         let option = document.createElement('option');
                         option.value = city;
@@ -540,7 +691,6 @@
                         citySelect.appendChild(option);
                     });
                 }
-                // if user can type manually, but we keep as select; add free text option? We can also add an input field later if needed. For simplicity, we also add an "other" in each? but we stick to provided cities.
             }
 
             // initial load (Pakistan is default)
@@ -550,40 +700,164 @@
                 populateCities(e.target.value);
             });
 
-            // ---------- FORM SUBMIT (premium check + success) ----------
-            document.getElementById('submitApplication').addEventListener('click', function(e) {
+            // ---------- FORM SUBMIT WITH FIREBASE ----------
+            document.getElementById('submitApplication').addEventListener('click', async function(e) {
                 e.preventDefault();
 
-                const fullName = document.getElementById('fullName').value.trim();
-                const guardian = document.getElementById('guardianName').value.trim();
-                const dob = document.getElementById('dob').value;
-                const gender = document.querySelector('input[name="gender"]:checked');
-                const cnic = document.getElementById('cnic').value.trim();
-                const nationality = document.getElementById('nationality').value;
-                const mobile = document.getElementById('mobile').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const address = document.getElementById('address').value.trim();
-                const city = document.getElementById('city').value;
-                const timing = document.querySelector('input[name="timing"]:checked');
-                const mode = document.querySelector('input[name="mode"]:checked');
-                const signature = document.getElementById('signature').value.trim();
-                const declDate = document.getElementById('declDate').value;
-
-                if (!fullName || !guardian || !dob || !gender || !cnic || !nationality || !mobile || !email || !address || !city || !timing || !mode || !signature || !declDate) {
-                    alert('Please complete all required fields (marked with *). Also ensure gender, timing, mode are selected.');
+                // Check Firebase connection
+                if (!isFirebaseInitialized) {
+                    showMessage('error', '❌ Firebase not connected. Please check your configuration.');
                     return;
                 }
 
-                // selected platforms
-                let platforms = [];
+                // Get all form values
+                const fullName = document.getElementById('fullName').value.trim();
+                const guardian = document.getElementById('guardianName').value.trim();
+                const dob = document.getElementById('dob').value;
+                const genderElement = document.querySelector('input[name="gender"]:checked');
+                const cnic = document.getElementById('cnic').value.trim();
+                const nationality = document.getElementById('nationality').value;
+                const mobile = document.getElementById('mobile').value.trim();
+                const altPhone = document.getElementById('altPhone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const city = document.getElementById('city').value;
+                const postal = document.getElementById('postal').value.trim();
+                const timingElement = document.querySelector('input[name="timing"]:checked');
+                const modeElement = document.querySelector('input[name="mode"]:checked');
+                const signature = document.getElementById('signature').value.trim();
+                const declDate = document.getElementById('declDate').value;
+
+                // Get education values
+                const instMatric = document.getElementById('instMatric').value.trim();
+                const yearMatric = document.getElementById('yearMatric').value.trim();
+                const gradeMatric = document.getElementById('gradeMatric').value.trim();
+                const instInter = document.getElementById('instInter').value.trim();
+                const yearInter = document.getElementById('yearInter').value.trim();
+                const gradeInter = document.getElementById('gradeInter').value.trim();
+                const instBach = document.getElementById('instBach').value.trim();
+                const yearBach = document.getElementById('yearBach').value.trim();
+                const gradeBach = document.getElementById('gradeBach').value.trim();
+
+                // Get radio values
+                const basicPC = document.querySelector('input[name="basicPC"]:checked')?.value;
+                const webSkill = document.querySelector('input[name="webSkill"]:checked')?.value;
+                const msOffice = document.querySelector('input[name="msOffice"]:checked')?.value;
+                const socialMedia = document.querySelector('input[name="socialMedia"]:checked')?.value;
+                const expElement = document.querySelector('input[name="exp"]:checked');
+                const expDesc = document.getElementById('expDesc').value.trim();
+
+                // Get checkbox groups
+                const platforms = [];
                 document.querySelectorAll('.platform:checked').forEach(cb => platforms.push(cb.value));
+                
+                const interests = [];
+                if (document.getElementById('interestSEO').checked) interests.push('SEO');
+                if (document.getElementById('interestSMM').checked) interests.push('Social Media Marketing');
+                if (document.getElementById('interestContent').checked) interests.push('Content Marketing');
+                if (document.getElementById('interestEmail').checked) interests.push('Email Marketing');
+                if (document.getElementById('interestAffiliate').checked) interests.push('Affiliate Marketing');
+                if (document.getElementById('interestEcom').checked) interests.push('E-commerce');
+                if (document.getElementById('interestPaid').checked) interests.push('Paid Advertising');
 
-                // success message
-                const successDiv = document.getElementById('successMsg');
-                successDiv.style.display = 'block';
-                successDiv.innerHTML = `✨ Thank you, ${fullName}! Your premium application has been received. Our admissions team will reach out within 24h.`;
+                const tools = [];
+                if (document.getElementById('toolGA').checked) tools.push('Google Analytics');
+                if (document.getElementById('toolGAds').checked) tools.push('Google Ads');
+                if (document.getElementById('toolCanva').checked) tools.push('Canva');
 
-                console.log('LUMINA application', { fullName, nationality, city, platforms });
+                const purposes = [];
+                if (document.getElementById('purposeBusiness').checked) purposes.push('Start online business');
+                if (document.getElementById('purposeFreelance').checked) purposes.push('Freelancing');
+                if (document.getElementById('purposeJob').checked) purposes.push('Job opportunities');
+                if (document.getElementById('purposeBusinessExist').checked) purposes.push('Improve existing business');
+                if (document.getElementById('purposeOther').checked) {
+                    const otherText = document.getElementById('purposeOtherText').value.trim();
+                    purposes.push(otherText || 'Other');
+                }
+
+                // Validate required fields
+                if (!fullName || !guardian || !dob || !genderElement || !cnic || !nationality || 
+                    !mobile || !email || !address || !city || !timingElement || !modeElement || 
+                    !signature || !declDate || !basicPC) {
+                    showMessage('error', 'Please complete all required fields (marked with *).');
+                    return;
+                }
+
+                // Prepare data for Firebase
+                const formData = {
+                    personalInfo: {
+                        fullName,
+                        guardian,
+                        dateOfBirth: dob,
+                        gender: genderElement.value,
+                        cnic,
+                        nationality
+                    },
+                    contactInfo: {
+                        mobile,
+                        alternatePhone: altPhone || null,
+                        email,
+                        address,
+                        city,
+                        postalCode: postal || null
+                    },
+                    education: {
+                        matric: { institution: instMatric, year: yearMatric, grade: gradeMatric },
+                        intermediate: { institution: instInter, year: yearInter, grade: gradeInter },
+                        bachelors: { institution: instBach, year: yearBach, grade: gradeBach }
+                    },
+                    skills: {
+                        basicComputer: basicPC,
+                        internetBrowsing: webSkill || null,
+                        microsoftOffice: msOffice || null,
+                        socialMediaUsage: socialMedia || null,
+                        platformsUsed: platforms
+                    },
+                    courseDetails: {
+                        courseName: 'Digital Marketing',
+                        preferredTiming: timingElement.value,
+                        learningMode: modeElement.value
+                    },
+                    interests: {
+                        areas: interests,
+                        tools: tools
+                    },
+                    experience: {
+                        hasExperience: expElement?.value || 'No',
+                        description: expDesc || null
+                    },
+                    purpose: purposes,
+                    declaration: {
+                        signature,
+                        date: declDate
+                    },
+                    metadata: {
+                        submittedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        applicationId: 'APP_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+                    }
+                };
+
+                // Submit to Firebase
+                setLoading(true);
+                
+                try {
+                    // Add to Firestore
+                    const docRef = await db.collection('applications').add(formData);
+                    
+                    console.log('✅ Application saved with ID:', docRef.id);
+                    
+                    // Show success message
+                    showMessage('success', `✨ Thank you, ${fullName}! Your application (ID: ${docRef.id.slice(0,8)}...) has been securely saved. Our admissions team will reach out within 24h.`);
+                    
+                    // Optionally reset form here if desired
+                    // document.getElementById('applicationForm').reset();
+                    
+                } catch (error) {
+                    console.error('❌ Error saving to Firebase:', error);
+                    showMessage('error', '❌ Failed to save application. Please try again or contact support.');
+                } finally {
+                    setLoading(false);
+                }
             });
         })();
     </script>
